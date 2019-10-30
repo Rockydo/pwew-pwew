@@ -14,5 +14,10 @@ function update()
         player1.decelerate(moveDistance);
 
     player1.move();
+    var x = (-WIDTH)/2 + Math.random() *  WIDTH - 1;
+    var y = (-HEIGHT)/2 + Math.random() * HEIGHT - 1;
+    for (var j = 0; j < enemies.length; j++){
+        enemies[j].moveAI();
+    } 
     controls.update();
 }

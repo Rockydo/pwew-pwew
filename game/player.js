@@ -21,6 +21,8 @@ var Player = function(name, color, position, direction) {
     THREE.GeometryUtils.merge(canon, sphere);
 
     this.graphic = new THREE.Mesh(sphere, this.material);
+    this.graphic.position.x = position.x;
+    this.graphic.position.y = position.y;
     this.graphic.position.z = 6;
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), this.direction);
 };
@@ -56,7 +58,7 @@ Player.prototype.displayInfo = function () {
 }
 
 Player.prototype.turnRight = function (angle) {
-    this.direction += angle;
+    this.direction -= angle;
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), angle);
 };
 
@@ -64,6 +66,22 @@ Player.prototype.turnLeft = function (angle) {
     this.direction += angle;
     this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), angle);
 };
+
+Player.prototype.moveAI = function(){
+    var x = Math.random() * 100;
+    if (x > 95){
+        var acc = Math.random() * 39000;
+        var turn = -90 + Math.random() * 180;
+        this.turnLeft(turn);
+        this.accelerate(y);
+        this.move();
+        this.decelerate(y);
+        this.move();
+    }
+    else
+        this.accelerate(1);
+    this.move(); 
+}
 
 Player.prototype.move = function () {
     var moveTo = new THREE.Vector3(
